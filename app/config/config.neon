@@ -16,6 +16,14 @@ common:
         session:
             expiration: 14 days
 
+        debugger:
+            blueScreen:
+                - Obo\ForeseenErrorPanel::addPanel
+
+    extensions:
+        dibi: Dibi\Bridges\Nette\DibiExtension22
+
+    dibi: %database%
 
     services:
         - App\RouterFactory
@@ -36,3 +44,4 @@ development < common:
             username: root
             password: root
             profiler: true
+
