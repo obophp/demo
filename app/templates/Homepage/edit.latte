@@ -1,0 +1,5 @@
+{block title}Edit user profile {$user->name} {$user->surname}{/block}
+{block content}
+    <a href="{link detail $user->id}">Back to user detail</a>
+    {control editUserForm}
+{/block}

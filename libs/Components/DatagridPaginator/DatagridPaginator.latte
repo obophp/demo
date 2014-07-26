@@ -1,0 +1,29 @@
+{snippet datagridPaginator}
+    <div class="datagridPaginatorSummary">{$paginator->shownFrom}. - {$paginator->shownTo}. record of {$paginator->itemCount}</div>
+    
+{if $paginator->pageCount > 1}
+        <div class="datagridPaginator">
+                {if $paginator->isFirst()}
+                    <span class="button">« Previous</span>
+                {else}
+                    <a href="{link goToPage!, $paginator->page - 1}" class="ajax">« previous</a>
+                {/if}
+
+                {foreach $steps as $step}
+                    {if $step == $paginator->page}
+                            <span class="current">{$step}</span>
+                    {else}
+                            <a href="{link goToPage!, $step}" class="ajax">{$step}</a>
+                    {/if}
+                    {if $iterator->nextValue > $step + 1}<span>…</span>{/if}
+                {/foreach}
+
+                {if $paginator->isLast()}
+                    <span class="button">Next »</span>
+                {else}
+                    <a href="{link goToPage!, $paginator->page + 1}" class="ajax">Next »</a>
+                {/if}
+        </div>
+    {/if}
+    
+{/snippet}

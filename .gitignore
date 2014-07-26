@@ -1,0 +1,40 @@
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+*~
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+
+# IDE generated files #
+#######################
+nbproject/
+.idea/
+
+
+# Web server genrated files #
+############################
+.htaccess
+web.config
+
+
+# cache files
+log/*
+!log/.placeholder
+temp/cache/*
+!temp/cache/.placeholder
+temp/obo/*
+!temp/obo/.placeholder
+temp/sessions/*
+!temp/sessions/.placeholder
+temp/btfj.dat
+
+# composer vendor dir
+vendor/
+
+# Nette local config
+app/config/config.local.neon
