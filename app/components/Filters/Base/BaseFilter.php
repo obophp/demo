@@ -1,6 +1,6 @@
 <?php
 
-/** 
+/**
  * This file is part of demo application for example of using framework Obo beta 2 version (http://www.obophp.org/)
  * Created under supervision of company as CreatApps (http://www.creatapps.cz/)
  * @link http://www.obophp.org/
@@ -11,10 +11,10 @@
 
 namespace DatagridFilters;
 
-class BaseFilter extends \DatagridFilter{
-    
-    protected function createFilterForm() {
-        $form = new \Base\Form($this, "filter_form_" . $this->getName());
+abstract class BaseFilter extends \obo\Utils\DatagridFilter {
+
+    protected function formFactory($name) {
+        $form = new \Base\Form($this, $name);
         $renderer = $form->getRenderer();
         $renderer->wrappers['controls']['container'] = NULL;
         $renderer->wrappers['pair']['container'] = NULL;

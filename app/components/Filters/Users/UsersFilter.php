@@ -1,6 +1,6 @@
 <?php
 
-/** 
+/**
  * This file is part of demo application for example of using framework Obo beta 2 version (http://www.obophp.org/)
  * Created under supervision of company as CreatApps (http://www.creatapps.cz/)
  * @link http://www.obophp.org/
@@ -20,37 +20,31 @@ class UsersFilter extends \DatagridFilters\BaseFilter{
         $this->form->addCheckbox("showHide", "Show hide");
         $this->form->addSelect("sort","Sort", array("surname" => "Surname"));
         $this->form->addSelect("direction","", array("ASC" => "Ascending", "DESC" => "Descending"));
-        $this->form->addSubmit("reset", "Reset")->onClick[] = callback($this, "resetFilter");   
+        $this->form->addSubmit("reset", "Reset")->onClick[] = callback($this, "resetFilter");
         $this->form->addSubmit("filter", "filter");
     }
 
-    public function getWhere() {
-        $data = $this->filterCriteria();
-        $query = array();
-        
-        if (isset($data['keyWord']) AND $data['keyWord']){
-            $query[] = " AND (CONCAT({name},' ',{surname}) LIKE %~like~)";
-            $query[] = $data['keyWord'];
-            
-            $query[] = " OR ({notices}.{text} LIKE %~like~)";
-            $query[] = $data['keyWord'];
-            
-            $query[] = " OR ({tags}.{name} LIKE %~like~)";
-            $query[] = $data['keyWord'];
-            
-            $query[] = " OR ({sex}.{name} LIKE %~like~)";
-            $query[] = $data['keyWord'];
-        }  
-        
-        if (!isset($data['showHide']) OR !$data['showHide']){
-            $query[] = " AND {hide} = 0";   
+    public function getSpecification() {
+        $formData = $this->filterCriteria();
+        $specification = new \obo\Carriers\QuerySpecification();
+
+        # select set
+
+        if (isset($formData['keyWord']) AND $formData['keyWord']){
+            $specification->where(" AND (CONCAT({name},' ',{surname}) LIKE %~like~)", $formData['keyWord']);
+            $specification->where(" OR ({notices}.{text} LIKE %~like~)", $formData['keyWord']);
+            $specification->where(" OR ({tags}.{name} LIKE %~like~)", $formData['keyWord']);
+            $specification->where(" OR ({sex}.{name} LIKE %~like~)", $formData['keyWord']);
         }
-                
-        return $query;
-    }
-    
-    public function getOrderBy() { 
-        $data = $this->filterCriteria();
-        return array("{{$data['sort']}} {$data['direction']}");
+
+        if (!isset($formData['showHide']) OR !$formData['showHide']) {
+            $specification->where(" AND {hide} = 0");
+        }
+
+        # ordering
+
+        $specification->orderBy("{{$formData['sort']}} {$formData['direction']}");
+
+        return $specification;
     }
 }

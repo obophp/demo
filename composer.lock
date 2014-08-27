@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8d8d6352c239dd4e9eedee521a1f6182",
+    "hash": "af8ccb0002b7508e03375f3eaeae9622",
     "packages": [
         {
             "name": "dibi/dibi",
@@ -1138,21 +1138,23 @@
             "time": "2014-05-25 06:15:25"
         },
         {
-            "name": "obo/obo",
+            "name": "obo/datagrid-filter",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/obophp/obo.git",
-                "reference": "d468f912c18eb9dc3d12310a449e43d78206369f"
+                "url": "https://github.com/obophp/datagrid-filter.git",
+                "reference": "76eebc5f32c14cdbbb60224b9ceb99ea02ec8dcc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/obophp/obo/zipball/d468f912c18eb9dc3d12310a449e43d78206369f",
-                "reference": "d468f912c18eb9dc3d12310a449e43d78206369f",
+                "url": "https://api.github.com/repos/obophp/datagrid-filter/zipball/76eebc5f32c14cdbbb60224b9ceb99ea02ec8dcc",
+                "reference": "76eebc5f32c14cdbbb60224b9ceb99ea02ec8dcc",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.1"
+                "nette/nette": "~2.2",
+                "obo/obo": "dev-master",
+                "php": ">=5.4.0"
             },
             "type": "library",
             "autoload": {
@@ -1168,8 +1170,13 @@
                 {
                     "name": "Adam Šuba",
                     "homepage": "http://adamsuba.cz"
+                },
+                {
+                    "name": "Roman Pavlík",
+                    "email": "ZZromanZZ@gmail.com"
                 }
             ],
+            "description": "Datagrid filter for Obo and Nette Framework",
             "homepage": "http://obophp.org",
             "keywords": [
                 "database",
@@ -1177,20 +1184,69 @@
                 "framework",
                 "orm"
             ],
-            "time": "2014-07-25 04:33:07"
+            "time": "2014-08-27 13:25:39"
         },
         {
-            "name": "obo/utils",
+            "name": "obo/datagrid-paginator",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/obophp/utils.git",
-                "reference": "cade7ef8c51ee3004daea58af008a557ff4b6859"
+                "url": "https://github.com/obophp/datagrid-paginator.git",
+                "reference": "3c8d31a9f17d49e74784e18d841c2520abf6be7b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/obophp/utils/zipball/cade7ef8c51ee3004daea58af008a557ff4b6859",
-                "reference": "cade7ef8c51ee3004daea58af008a557ff4b6859",
+                "url": "https://api.github.com/repos/obophp/datagrid-paginator/zipball/3c8d31a9f17d49e74784e18d841c2520abf6be7b",
+                "reference": "3c8d31a9f17d49e74784e18d841c2520abf6be7b",
+                "shasum": ""
+            },
+            "require": {
+                "nette/nette": "~2.2",
+                "obo/obo": "dev-master",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    ""
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Adam Šuba",
+                    "homepage": "http://adamsuba.cz"
+                },
+                {
+                    "name": "Roman Pavlík",
+                    "email": "ZZromanZZ@gmail.com"
+                }
+            ],
+            "description": "Datagrid paginator for Obo and Nette Framework",
+            "homepage": "http://obophp.org",
+            "keywords": [
+                "database",
+                "domain logic",
+                "framework",
+                "orm"
+            ],
+            "time": "2014-08-27 13:17:50"
+        },
+        {
+            "name": "obo/foreseen-error-panel",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/obophp/foreseen-error-panel.git",
+                "reference": "2416f9a142000136c53586f37c99bc784beb458d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/obophp/foreseen-error-panel/zipball/2416f9a142000136c53586f37c99bc784beb458d",
+                "reference": "2416f9a142000136c53586f37c99bc784beb458d",
                 "shasum": ""
             },
             "require": {
@@ -1218,6 +1274,7 @@
                     "email": "ZZromanZZ@gmail.com"
                 }
             ],
+            "description": "Foreseen error panel for Tracy",
             "homepage": "http://obophp.org",
             "keywords": [
                 "database",
@@ -1225,7 +1282,49 @@
                 "framework",
                 "orm"
             ],
-            "time": "2014-07-12 07:38:05"
+            "time": "2014-08-27 10:50:02"
+        },
+        {
+            "name": "obo/obo",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/obophp/obo.git",
+                "reference": "b38ee39f9586f61a39634b0978d7299f721af565"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/obophp/obo/zipball/b38ee39f9586f61a39634b0978d7299f721af565",
+                "reference": "b38ee39f9586f61a39634b0978d7299f721af565",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    ""
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Adam Šuba",
+                    "homepage": "http://adamsuba.cz"
+                }
+            ],
+            "homepage": "http://obophp.org",
+            "keywords": [
+                "database",
+                "domain logic",
+                "framework",
+                "orm"
+            ],
+            "time": "2014-08-26 12:42:05"
         },
         {
             "name": "tracy/tracy",
@@ -1282,22 +1381,18 @@
             "time": "2014-06-24 01:18:03"
         }
     ],
-    "packages-dev": [
-
-    ],
-    "aliases": [
-
-    ],
+    "packages-dev": [],
+    "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
         "obo/obo": 20,
-        "obo/utils": 20
+        "obo/foreseen-error-panel": 20,
+        "obo/datagrid-filter": 20,
+        "obo/datagrid-paginator": 20
     },
     "prefer-stable": true,
     "platform": {
         "php": ">=5.3.1"
     },
-    "platform-dev": [
-
-    ]
+    "platform-dev": []
 }
