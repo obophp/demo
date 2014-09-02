@@ -19,9 +19,6 @@ class HomepagePresenter extends \Nette\Application\UI\Presenter{
     public function renderDetail($userId) {
         # assign User entity to template
         $this->template->user = $user = \Users\UserManager::user($userId);
-
-        # assign set of Notice entities to template, set is influenced by current status paginator
-        $this->template->notices = \Notice\NoticeManager::noticesForUser($user, $this["noticePaginator"]);
         # notify event "onViewInDetail" for User entity
         \obo\Services::serviceWithName(\obo\obo::EVENT_MANAGER)->notifyEventForEntity("onViewInDetail", $user);
     }
