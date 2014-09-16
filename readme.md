@@ -1,5 +1,5 @@
 # Obo demo application #
-It is simple demo application for person, sex, note or tag registration. The main purpose is to present potential and usage of Obo framework for end programmers.
+It is simple demo application for person, sex, note or tag registration. The main purpose is to present potential and usage of Obo framework for programmers.
 
 ## Licence ##
 http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
@@ -13,6 +13,7 @@ http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  - set write access for web-server user to log/ and temp/ folders
  - create database
  - execute demo.sql
+ - rename app/config/config.local.example.neon to config.local.neon
  - configure database access in app/config/config.neon (better in app/config/config.local.neon)
  - learn and profit
 

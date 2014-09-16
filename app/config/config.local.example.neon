@@ -1,0 +1,9 @@
+common:
+    nette:
+        container:
+            debugger: true
+
+
+development < common:
+
+production < common:
