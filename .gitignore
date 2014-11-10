@@ -1,5 +1,3 @@
-# OS generated files #
-######################
 .DS_Store
 .DS_Store?
 ._*
@@ -8,20 +6,9 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
-
-
-# IDE generated files #
-#######################
 nbproject/
 .idea/
-
-
-# Web server genrated files #
-############################
 web.config
-
-
-# cache files
 log/*
 !log/.placeholder
 temp/cache/*
@@ -31,9 +18,6 @@ temp/obo/*
 temp/sessions/*
 !temp/sessions/.placeholder
 temp/btfj.dat
-
-# composer vendor dir
 vendor/
-
-# Nette local config
 app/config/config.local.neon
+composer.lock
