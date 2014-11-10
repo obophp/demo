@@ -5,6 +5,11 @@
 # http://nette.org/security-warning
 #
 common:
+    parameters:
+        obo:
+            developerMode: true
+            tempDir: %tempDir%/obo
+
     php:
         date.timezone: Europe/Prague
         session.save_path: "%tempDir%/sessions"
@@ -28,13 +33,12 @@ common:
     services:
         - App\RouterFactory
         router: @App\RouterFactory::createRouter
-
-production < common:
-    parameters:
-        database:
-            host: localhost
-            database: obo-demo
-
+        obo:
+            class: \obo\obo
+            setup:
+                - setDefaultDataStorage(\obo\DataStorage\Dibi(@dibi.connection))
+                - \obo\obo::$developerMode(%obo.developerMode%)
+                - setCache(\Cache(%obo.tempDir%))
 
 development < common:
     parameters:

@@ -18,17 +18,7 @@ $configurator->addConfig(__DIR__ . '/config/config.local.neon', \Nette\Configura
 
 $container = $configurator->createContainer();
 
-// Obo developer mode
-\obo\obo::$developerMode = $container->parameters["debugMode"];
-
-// setting Obo cache - not used in developer mode
-\obo\obo::setCache(new \Cache(__DIR__ . '/../temp/obo'));
-
-// connect Obo to RepositoryLayer
-\obo\obo::connectToRepositoryLayer($container->getService("dibi.connection"));
-
-// run Obo, run ...
-\obo\obo::run();
+$container->createServiceObo()->run();
 
 return $container;
 
