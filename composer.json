@@ -16,6 +16,7 @@
         "php": ">=5.3.1",
         "nette/nette": "~2.2",
         "obo/obo": "dev-master",
+        "obo/data-storage-dibi": "dev-master",
         "obo/foreseen-error-panel": "dev-master",
         "obo/datagrid-filter": "dev-master",
         "obo/datagrid-paginator": "dev-master",
