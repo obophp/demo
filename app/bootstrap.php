@@ -2,6 +2,8 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
+define('MODELS_DIR', __DIR__ . '/models');
+
 $configurator = new Nette\Configurator;
 
 $configurator->enableDebugger(__DIR__ . '/../log');
