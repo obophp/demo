@@ -40,6 +40,7 @@ common:
                 - setDefaultDataStorage(\obo\DataStorage\MySQL(@dibi.connection, \obo\DataStorage\Convertors\DefaultMysqlDataConverter(), \Cache(%obo.datastorageTempDir%)))
                 - \obo\obo::$developerMode(%obo.developerMode%)
                 - addModelsDirs(%obo.modelsDirs%)
+                - setTempDir(%obo.tempDir%)
                 - setCache(\Cache(%obo.tempDir%))
 
 development < common:

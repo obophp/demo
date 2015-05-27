@@ -13,6 +13,7 @@ namespace Base;
 
 /**
  * Base entity class for my improvements
+ * @obo-primaryProperty(id)
  * @property int $id
  */
 abstract class Entity extends \obo\Entity {
