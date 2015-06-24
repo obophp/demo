@@ -9,6 +9,7 @@ common:
         obo:
             developerMode: true
             tempDir: %tempDir%/obo
+            datastorageTempDir: %tempDir%/datastorage
 
     php:
         date.timezone: Europe/Prague
@@ -36,8 +37,10 @@ common:
         obo:
             class: \obo\obo
             setup:
-                - setDefaultDataStorage(\obo\DataStorage\Dibi(@dibi.connection))
+                - setDefaultDataStorage(\obo\DataStorage\MySQL(@dibi.connection, \obo\DataStorage\Convertors\DefaultMysqlDataConverter(), \Cache(%obo.datastorageTempDir%)))
                 - \obo\obo::$developerMode(%obo.developerMode%)
+                - addModelsDirs(%obo.modelsDirs%)
+                - setTempDir(%obo.tempDir%)
                 - setCache(\Cache(%obo.tempDir%))
 
 development < common:
@@ -48,4 +51,6 @@ development < common:
             username: root
             password: root
             profiler: true
-
+        obo:
+            modelsDirs:
+                - ::MODELS_DIR

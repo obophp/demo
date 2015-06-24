@@ -3,6 +3,10 @@
 <a href="{link default}">Back to overview</a>
     <table border="1" cellpadding="0" cellspacing="0">
         <tr>
+            <td colspan="2">Base information</td>
+        </tr>
+
+        <tr>
             <td>Name</td>
             <td>{$user->name} {$user->surname}</td>
         </tr>
@@ -10,6 +14,29 @@
         <tr>
             <td>Sex</td>
             <td>{$user->sex_name}</td>
+        </tr>
+
+        <tr>
+            <td colspan="2">Address</td>
+        </tr>
+
+        <tr>
+            <td>Street</td>
+            <td>{$user->address->street}</td>
+        </tr>
+
+        <tr>
+            <td>City</td>
+            <td>{$user->address->city}</td>
+        </tr>
+
+        <tr>
+            <td>ZIP</td>
+            <td>{$user->address->zip}</td>
+        </tr>
+
+        <tr>
+            <td colspan="2">Contact</td>
         </tr>
 
         <tr>
@@ -21,10 +48,16 @@
             <td>Phone</td>
             <td>{$user->phone}</td>
         </tr>
+
+        <tr>
+            <td colspan="2">Card information</td>
+        </tr>
+
         <tr>
             <td>Created</td>
             <td>{$user->dateTimeInserted|date:'d.m.Y H:i'}</td>
         </tr>
+
         <tr>
             <td>Updated</td>
             <td>{$user->dateTimeUpdated|date:'d.m.Y H:i'}</td>

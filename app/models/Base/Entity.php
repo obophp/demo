@@ -1,6 +1,6 @@
 <?php
 
-/** 
+/**
  * This file is part of demo application for example of using framework Obo beta 2 version (http://www.obophp.org/)
  * Created under supervision of company as CreatApps (http://www.creatapps.cz/)
  * @link http://www.obophp.org/
@@ -13,8 +13,9 @@ namespace Base;
 
 /**
  * Base entity class for my improvements
- * @obo-softDeletable
+ * @obo-primaryProperty(id)
+ * @property int $id
  */
 abstract class Entity extends \obo\Entity {
-       
+
 }
