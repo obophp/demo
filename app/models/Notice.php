@@ -66,7 +66,7 @@ class NoticeManager extends \Base\EntityManager{
      * @return \Notice\Notice[]
      */
     public static function noticesForUser(\Users\User $user,\obo\Interfaces\IPaginator $paginator = null, \obo\Interfaces\IFilter $filter = null) {
-        return self::findEntities(\obo\Carriers\QueryCarrier::instance()->where("AND {user} = %i", $user->id), $paginator, $filter);
+        return self::findEntities(\obo\Carriers\QueryCarrier::instance()->where("AND {user} = ?", $user->id), $paginator, $filter);
     }
 
     /**
