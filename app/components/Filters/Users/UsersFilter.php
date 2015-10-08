@@ -31,10 +31,10 @@ class UsersFilter extends \DatagridFilters\BaseFilter{
         # select set
 
         if (isset($formData['keyWord']) AND $formData['keyWord']){
-            $specification->where(" AND (CONCAT({name},' ',{surname}) LIKE %~like~)", $formData['keyWord']);
-            $specification->where(" OR ({notices}.{text} LIKE %~like~)", $formData['keyWord']);
-            $specification->where(" OR ({tags}.{name} LIKE %~like~)", $formData['keyWord']);
-            $specification->where(" OR ({sex}.{name} LIKE %~like~)", $formData['keyWord']);
+            $specification->where(" AND (CONCAT({name},' ',{surname}) LIKE ?)", "%{$formData['keyWord']}%");
+            $specification->where(" OR ({notices}.{text} LIKE ?)", "%{$formData['keyWord']}%");
+            $specification->where(" OR ({tags}.{name} LIKE ?)", "%{$formData['keyWord']}%");
+            $specification->where(" OR ({sex}.{name} LIKE ?)", "%{$formData['keyWord']}%");
         }
 
         if (!isset($formData['showHide']) OR !$formData['showHide']) {
