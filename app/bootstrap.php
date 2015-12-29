@@ -20,6 +20,10 @@ $configurator->addConfig(__DIR__ . '/config/config.local.neon', \Nette\Configura
 
 $container = $configurator->createContainer();
 
+\Tracy\Debugger::$maxDepth = 7;
+\Tracy\Debugger::$maxLen = 5000;
+\Dibi\Bridges\Tracy\Panel::$maxLength = 5000;
+
 $container->createServiceObo()->run();
 
 return $container;

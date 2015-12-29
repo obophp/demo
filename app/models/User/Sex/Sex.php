@@ -9,7 +9,7 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
-namespace Users;
+namespace Models\User;
 
 # A class defining the entity is usually better to split into its own file. Here are clarity placed in one file
 
@@ -21,8 +21,8 @@ class SexProperties extends \Base\EntityProperties {
 # definition entity
 
 /**
+ * @obo-repositoryName(sex)
  * @property string $name
-
  */
 class Sex extends \Base\Entity{
 

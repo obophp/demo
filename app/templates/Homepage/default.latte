@@ -9,8 +9,10 @@
     <tr>
         <th>Name</th>
         <th>Sex</th>
+        <th>Address</th>
         <th>E-Mail</th>
         <th>Phone</th>
+        <th>Contact note</th>
         <th>Hidden</th>
         <th>Action</th>
     </tr>
@@ -18,8 +20,10 @@
         <tr>
             <td><a href="{link detail $user->id}">{$user->nameSurname}</a></td>
             <td>{$user->sex->name}</td>
-            <td>{$user->email}</td>
-            <td>{$user->phone}</td>
+            <td>{$user->contact->address->street}, {$user->contact->address->zip} {$user->contact->address->city}</td>
+            <td>{$user->contact->email}</td>
+            <td>{$user->contact->phone}</td>
+            <td>{$user->contact->notice->text}</td>
             <td>{if $user->hide}Yes{else}No{/if}</td>
             <td>
                 <a href="{link edit $user->id}">Edit</a>

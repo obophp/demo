@@ -9,16 +9,17 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
-namespace Users;
+namespace Models\User\Contact;
 
 # A class defining the entity is usually better to split into its own file. Here are clarity placed in one file
 
 # definition of properties
 class AddressProperties extends \Base\EntityProperties {
+
     /**
-     * @obo-one(targetEntity = "\Users\User", connectViaProperty="address")
+     * @obo-one(targetEntity = "\Models\User\Contact", connectViaProperty="address")
      */
-    public $user = null;
+    public $contact = null;
     public $street = "";
     public $city = "";
     public $zip = "";
@@ -27,6 +28,8 @@ class AddressProperties extends \Base\EntityProperties {
 # definition entity
 
 /**
+ * @obo-repositoryName(user_contact_address)
+ * @property \Models\User\Contact $contact
  * @property string $street
  * @property string $city
  * @property string $zip
@@ -35,13 +38,11 @@ class Address extends \Base\Entity{
 
     /**
      * @param \Nette\Forms\Form $form
-     * @return \Nette\Forms\Form
      */
     public static function constructForm(\Nette\Forms\Form $form, $controlPrefix = null) {
         $form->addText(($controlPrefix ? $controlPrefix . "_" : "") . "street", "street");
         $form->addText(($controlPrefix ? $controlPrefix . "_" : "") . "city", "city");
         $form->addText(($controlPrefix ? $controlPrefix . "_" : "") . "zip", "zip");
-        return $form;
     }
 }
 

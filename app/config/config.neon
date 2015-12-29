@@ -37,11 +37,12 @@ common:
         obo:
             class: \obo\obo
             setup:
-                - setDefaultDataStorage(\obo\DataStorage\MySQL(@dibi.connection, \obo\DataStorage\Convertors\DefaultMysqlDataConverter(), \Cache(%obo.datastorageTempDir%)))
+                - setDefaultDataStorage(\obo\DataStorage\MySQL(@dibi.connection, \obo\DataStorage\DataConverters\DefaultMysqlDataConverter(), \Cache(%obo.datastorageTempDir%)))
                 - \obo\obo::$developerMode(%obo.developerMode%)
                 - addModelsDirs(%obo.modelsDirs%)
                 - setTempDir(%obo.tempDir%)
                 - setCache(\Cache(%obo.tempDir%))
+        loader: \Loader(\obo\DataStorage\DataConverters\DefaultMysqlDataConverter(), %tdatabase%, \Cache(%obo.datastorageTempDir%))
 
 development < common:
     parameters:
@@ -51,6 +52,12 @@ development < common:
             username: root
             password: root
             profiler: true
+        tdatabase:
+            driver: mysql
+            host: localhost
+            user: root
+            password: root
+            profiler: false
         obo:
             modelsDirs:
                 - ::MODELS_DIR

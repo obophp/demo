@@ -9,19 +9,22 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
-namespace Notice;
+namespace Models;
 
 # A class defining the entity is usually better to split into its own file. Here are clarity placed in one file
 
 # definition of properties
 
 class NoticeProperties extends \Base\EntityProperties {
-    /** @obo-one(targetEntity = "\Users\User")*/
-    public $user;
-    public $text = "";
+
+    /** @obo-one(targetEntity = "property:ownerEntityName")*/
+    public $owner = null;
+    public $ownerEntityName = "";
+    
+    public $text = "default notice";
+
     /**
      * @obo-timeStamp(beforeInsert)
-     * @obo-dataType(dateTime)
      */
     public $dateTimeInserted = "";
     public $deleted = false;
@@ -30,8 +33,9 @@ class NoticeProperties extends \Base\EntityProperties {
 # definition entity
 
 /**
+ * @obo-repositoryName(notice)
  * @obo-softDeletable
- * @property \Users\User $user
+ * @property \Models\User $user
  * @property string $text
  * @property string $dateTimeInserted
  */
@@ -44,6 +48,7 @@ class Notice extends \Base\Entity{
     public static function constructForm(\Nette\Forms\Form $form) {
         $form->addHidden('id');
         $form->addText('text', 'Text notice', 50);
+
         return $form;
     }
 }
@@ -53,36 +58,27 @@ class Notice extends \Base\Entity{
 class NoticeManager extends \Base\EntityManager{
 
     /**
-     * @param null|int|array $specification
-     * @return \Notice\Notice
+     * @param int|array $specification
+     * @return \Models\Notice
      */
     public static function notice($specification) {
-        return self::entity($specification);
-    }
-
-    /**
-     * @param \obo\Interfaces\IPaginator $paginator
-     * @param \obo\Interfaces\IFilter $filter
-     * @return \Notice\Notice[]
-     */
-    public static function noticesForUser(\Users\User $user,\obo\Interfaces\IPaginator $paginator = null, \obo\Interfaces\IFilter $filter = null) {
-        return self::findEntities(\obo\Carriers\QueryCarrier::instance()->where("AND {user} = ?", $user->id), $paginator, $filter);
+        return static::entity($specification);
     }
 
     /**
      * @param \Nette\Forms\Form $form
-     * @return \Nette\Forms\Form | \Notice\Notice
+     * @return \Nette\Forms\Form | \Models\Notice
      */
     public static function newNoticeFromForm(\Nette\Forms\Form $form) {
-        return self::newEntityFromForm(\Notice\Notice::constructForm($form));
+        return static::newEntityFromForm(\Models\Notice::constructForm($form));
     }
 
     /**
      * @param \Nette\Forms\Form $form
-     * @param Notice\Notice $notice
-     * @return \Nette\Forms\Form | \Notice\Notice
+     * @param \Models\Notice $notice
+     * @return \Nette\Forms\Form | \Models\Notice
      */
-    public static function editNoticeFromForm(\Nette\Forms\Form $form, \Notice\Notice $notice = null) {
-        return self::editEntityFromForm(\Notice\Notice::constructForm($form), $notice);
+    public static function editNoticeFromForm(\Nette\Forms\Form $form, \Models\Notice $notice = null) {
+        return static::editEntityFromForm(\Models\Notice::constructForm($form), $notice);
     }
 }
