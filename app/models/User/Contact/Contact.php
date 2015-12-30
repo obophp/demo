@@ -43,23 +43,24 @@ class ContactProperties extends \Base\EntityProperties {
  * @property string $email
  * @property string $phone
  */
-class Contact extends \Base\Entity{
+class Contact extends \Base\Entity {
 
     /**
-     * @param \Nette\Forms\Form $form
+     * @param \Base\Form $form
+     * @param string $controlPrefix
      */
-    public static function constructForm(\Nette\Forms\Form $form, $controlPrefix = null) {
-        $form->addText(($controlPrefix ? $controlPrefix . "_" : "") . 'email', "E-Mail", 50);
-        $form->addText(($controlPrefix ? $controlPrefix . "_" : "") . 'phone', 'Phone');
+    public static function constructForm(\Base\Form $form, $controlPrefix = null) {
+        $form->addText(($controlPrefix ? $controlPrefix . "_" : "") . "email", "E-Mail", 50);
+        $form->addText(($controlPrefix ? $controlPrefix . "_" : "") . "phone", "Phone");
         $form->addGroup("Address");
-        \Models\User\Contact\Address::constructForm($form, ($controlPrefix ? $controlPrefix . "_" : "") . 'address');
+        \Models\User\Contact\Address::constructForm($form, ($controlPrefix ? $controlPrefix . "_" : "") . "address");
         $form->addGroup("Notice");
-        $form->addText(($controlPrefix ? $controlPrefix . "_" : "") . 'notice_text', 'Notice');
+        $form->addText(($controlPrefix ? $controlPrefix . "_" : "") . "notice_text", "Notice");
     }
 }
 
 # definition entity manager
 
-class ContactManager extends \Base\EntityManager{
+class ContactManager extends \Base\EntityManager {
 
 }

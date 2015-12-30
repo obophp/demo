@@ -1,26 +1,21 @@
 {
     "name": "obo/demo",
     "description": "Obo demo application",
-    "license": ["Apache-2.0"],
+    "license": "Apache-2.0",
     "authors": [
         {
-            "name": "Adam Šuba",
-            "homepage": "http://www.adamsuba.cz"
-        },
-        {
-            "name": "Roman Pavlík",
-            "email": "zzromanzz@gmail.com"
+            "name": "Collective authorship of Obo community",
+            "email": "info@obophp.org"
         }
     ],
     "require": {
-        "php": ">=5.3.1",
+        "php": ">=5.4.0",
         "nette/nette": "~2.2",
         "obo/obo": "dev-master",
-        "obo/data-storage-dibi": "dev-master",
-        "obo/foreseen-error-panel": "dev-master",
+        "obo/data-storage-mysql": "dev-master",
+        "obo/tracy-tools": "dev-master",
         "obo/datagrid-filter": "dev-master",
-        "obo/datagrid-paginator": "dev-master",
-        "dibi/dibi": "~2.2"
+        "obo/datagrid-paginator": "dev-master"
     },
     "minimum-stability": "dev",
     "prefer-stable": true

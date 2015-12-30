@@ -16,6 +16,9 @@ common:
         session.save_path: "%tempDir%/sessions"
 
     nette:
+        container:
+            accessors: true
+
         application:
             errorPresenter: Error
 
@@ -24,7 +27,7 @@ common:
 
         debugger:
             blueScreen:
-                - Obo\ForeseenErrorPanel::addPanel
+                - obo\ForeseenErrorPanel::addPanel
 
     extensions:
         dibi: Dibi\Bridges\Nette\DibiExtension22
@@ -42,7 +45,6 @@ common:
                 - addModelsDirs(%obo.modelsDirs%)
                 - setTempDir(%obo.tempDir%)
                 - setCache(\Cache(%obo.tempDir%))
-        loader: \Loader(\obo\DataStorage\DataConverters\DefaultMysqlDataConverter(), %tdatabase%, \Cache(%obo.datastorageTempDir%))
 
 development < common:
     parameters:

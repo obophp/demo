@@ -85,30 +85,30 @@ class UserProperties extends \Base\EntityProperties{
  * @property string $surname
  * @property string $nameSurname
  * @property \Models\User\Contact $contact
- * @property \Users\Sex $sex
- * @property \Notice\Notice[] $notices
- * @property \Tag\Tag[] $tags
+ * @property \Models\User\Sex $sex
+ * @property \Models\Notice[] $notices
+ * @property \Models\Tag[] $tags
  * @property int $countView
  * @property boolean $hide
  * @property string $dateTimeInserted
  * @property string $dateTimeUpdated
  */
-class User extends \Base\Entity{
+class User extends \Base\Entity {
 
     /**
-     * @param \Nette\Forms\Form $form
-     * @return \Nette\Forms\Form
+     * @param \Base\Form $form
+     * @return \Base\Form
      */
-    public static function constructForm(\Nette\Forms\Form $form) {
-        $form->addHidden('id');
+    public static function constructForm(\Base\Form $form) {
+        $form->addHidden("id");
         $form->addGroup("Base information");
-        $form->addText('name', 'Name',20);
-        $form->addText('surname', 'Surname',20);
+        $form->addText("name", "Name", 20);
+        $form->addText("surname", "Surname", 20);
         $form->addRadioList("sex", "Sex", \Models\User\Sex::sexDial());
         $form->addGroup("Contact");
         \Models\User\Contact::constructForm($form, "contact");
         $form->addGroup("");
-        $form->addCheckbox('hide', 'Hide');
+        $form->addCheckbox("hide", "Hide");
         return $form;
     }
 
@@ -116,7 +116,7 @@ class User extends \Base\Entity{
      * @obo-run("onViewInDetail")
      */
     public function increaseCountView() {
-        # This method is automatically called when the event 'onViewInDetail' occurs over an entity
+        # This method is automatically called when the event "onViewInDetail" occurs over an entity
         $this->countView++;
         $this->save();
     }
@@ -129,7 +129,7 @@ class UserManager extends \Base\EntityManager{
 
     /**
      * @param int|array $specification
-     * @return\Models\User
+     * @return \Models\User
      */
     public static function user($specification) {
         return static::entity($specification);
@@ -145,19 +145,19 @@ class UserManager extends \Base\EntityManager{
     }
 
     /**
-     * @param \Nette\Forms\Form $form
-     * @return \Nette\Forms\For|\Models\User
+     * @param \Base\Form $form
+     * @return \Base\Form|\Models\User
      */
-    public static function newUserFromForm(\Nette\Forms\Form $form) {
+    public static function newUserFromForm(\Base\Form $form) {
         return static::newEntityFromForm(\Models\User::constructForm($form));
     }
 
     /**
-     * @param \Nette\Forms\Form $form
+     * @param \Base\Form $form
      * @param \Models\User $user
-     * @return \Nette\Forms\For|\Users\User
+     * @return \Base\Form|\Models\User
      */
-    public static function editUserFromForm(\Nette\Forms\Form $form, \Models\User $user = null) {
+    public static function editUserFromForm(\Base\Form $form, \Models\User $user = null) {
         return static::editEntityFromForm(\Models\User::constructForm($form), $user);
     }
 

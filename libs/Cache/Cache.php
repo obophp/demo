@@ -1,20 +1,10 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+class Cache implements \obo\Interfaces\ICache {
 
-/**
- * Description of Cache
- *
- * @author adam
- */
-class Cache implements \obo\Interfaces\ICache{
-    
-    private $cacheEngine = null;
-    
-    
+    protected $cacheEngine = null;
+
+
     public function __construct($cacheTemporary) {
         $this->cacheEngine = new \Nette\Caching\Cache(new Nette\Caching\Storages\FileStorage($cacheTemporary));
     }
@@ -26,5 +16,5 @@ class Cache implements \obo\Interfaces\ICache{
     public function store($key, $value) {
         return $this->cacheEngine->save($key, $value);
     }
-    
+
 }

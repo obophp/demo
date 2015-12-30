@@ -30,7 +30,10 @@ class Sex extends \Base\Entity{
      * @return array
      */
     public static function sexDial() {
-        return array("1"=>"man", "2"=>"woman");
+        return [
+            "1" => "man",
+            "2" => "woman",
+        ];
     }
 
 }
