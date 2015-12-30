@@ -9,7 +9,7 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
-namespace Tag;
+namespace Models;
 
 # A class defining the entity is usually better to split into its own file. Here are clarity placed in one file
 
@@ -23,6 +23,7 @@ class TagProperties extends \Base\EntityProperties{
 # definition entity
 
 /**
+ * @obo-repositoryName(tag)
  * @obo-softDeletable
  * @property string $name
  * @property bolean $deleted
@@ -35,7 +36,7 @@ class Tag extends \Base\Entity{
      */
     public static function constructForm(\Nette\Forms\Form $form) {
         $form->addText('name', "New tag");
-        $form->addSelect("tagId", null,  self::tagsDial())->setPrompt("Or select");
+        $form->addSelect("tagId", null,  static::tagsDial())->setPrompt("Or select");
         return $form;
     }
 
@@ -44,7 +45,7 @@ class Tag extends \Base\Entity{
      */
     public static function tagsDial() {
         $tagsDial = array();
-        foreach(\Tag\TagManager::tags() as $tag) $tagsDial[$tag->id] = $tag->name;
+        foreach(\Models\TagManager::tags() as $tag) $tagsDial[$tag->id] = $tag->name;
         return $tagsDial;
     }
 
@@ -55,20 +56,20 @@ class Tag extends \Base\Entity{
 class TagManager extends \Base\EntityManager{
 
     /**
-     * @param array|int|null $specification
-     * @return \Tag\Tag
+     * @param array|int $specification
+     * @return \Models\Tag
      */
     public static function tag($specification) {
-        return self::entity($specification);
+        return static::entity($specification);
     }
 
     /**
      * @param \obo\Interfaces\IPaginator $paginator
      * @param \obo\Interfaces\IFilter $filter
-     * @return \Tag\Tag[]
+     * @return \Models\Tag
      */
     public static function tags(\obo\Interfaces\IPaginator $paginator = null, \obo\Interfaces\IFilter $filter = null) {
-        return self::findEntities(new \obo\Carriers\QueryCarrier(), $paginator, $filter);
+        return static::findEntities(static::querySpecification(), $paginator, $filter);
     }
 
     /**
@@ -76,15 +77,17 @@ class TagManager extends \Base\EntityManager{
      * @param \Users\User $user
      * @return \Nette\Forms\Form|\Tag\Tag
      */
-    public static function addTagToUserFromForm(\Nette\Forms\Form $form, \Users\User $user) {
-        $form = \Tag\Tag::constructForm($form);
+    public static function addTagToUserFromForm(\Nette\Forms\Form $form, \Models\User $user) {
+        $form = \Models\Tag::constructForm($form);
         $form->addSubmit("add", "Add");
         if ($form->isSubmitted() AND $form->isValid()) {
+
             if (isset($form->values["name"]) AND $form->values["name"]) {
-                return $user->tags->add(\Tag\TagManager::tag(array("name" => $form["name"]->value))->save());
+                return $user->tags->addNew(["name" => $form["name"]->value]);
             } else {
-                return $user->tags->add(\Tag\TagManager::tag($form["tagId"]->value));
+                return $user->tags->add(\Models\TagManager::tag($form["tagId"]->value));
             }
+
         }
     }
 }

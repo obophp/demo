@@ -9,53 +9,53 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
-class HomepagePresenter extends \Nette\Application\UI\Presenter{
+class HomepagePresenter extends \Nette\Application\UI\Presenter {
 
     public function renderDefault() {
         # assign set of User entities to template, set is influenced by current status paginator and filter
-        $this->template->users = \Users\UserManager::users($this["paginator"], $this["filter"]);
+        $this->template->users = \Models\UserManager::users($this["paginator"], $this["filter"]);
     }
 
     public function renderDetail($userId) {
         # assign User entity to template
-        $this->template->user = $user = \Users\UserManager::user($userId);
+        $this->template->user = $user = \Models\UserManager::user($userId);
         # notify event "onViewInDetail" for User entity
         \obo\Services::serviceWithName(\obo\obo::EVENT_MANAGER)->notifyEventForEntity("onViewInDetail", $user);
     }
 
     public function renderEdit($userId) {
         # assign User entity to template
-        $this->template->user = \Users\UserManager::user($userId);
+        $this->template->user = \Models\UserManager::user($userId);
     }
 
     public function handleDelete($userId) {
         # remove entity
-        \Users\UserManager::user($userId)->delete();
+        \Models\UserManager::user($userId)->delete();
         $this->flashMessage("User has been removed", "success");
         $this->redirect("this");
     }
 
     public function renderAddNotice($userId) {
         # assign User entity to template
-        $this->template->user = \Users\UserManager::user($userId);
+        $this->template->user = \Models\UserManager::user($userId);
     }
 
     public function renderEditNotice($noticeId) {
         # assign Notice entity to template
-        $this->template->notice = \Notice\NoticeManager::notice($noticeId);
+        $this->template->notice = \Models\NoticeManager::notice($noticeId);
     }
 
     public function handleDeleteNotice($noticeId) {
         # remove entity
-        $notice = \Notice\NoticeManager::notice($noticeId);
-        $notice->user->notices->remove($notice, true);
+        $notice = \Models\NoticeManager::notice($noticeId);
+        $notice->owner->notices->remove($notice, true);
         $this->flashMessage("Notice has been removed", "success");
         $this->redirect("this");
     }
 
     public function handleDeleteTagFromUser($tagId, $userId) {
         # remove tag
-        \Users\UserManager::user($userId)->tags->remove(\Tag\TagManager::tag($tagId));
+        \Models\UserManager::user($userId)->tags->remove(\Models\TagManager::tag($tagId));
         $this->flashMessage("Tag has been removed", "success");
         $this->redirect("this");
     }
@@ -64,8 +64,8 @@ class HomepagePresenter extends \Nette\Application\UI\Presenter{
         # create form for insertion Tag to User, if form is send it is processed
         $form = new \Base\Form($this, $name);
 
-        if ($tag = \Tag\TagManager::addTagToUserFromForm($form, \Users\UserManager::user($this->params["userId"]))) {
-            $this->flashMessage("Tag with name '$tag->name' is added", "success");
+        if ($tag = \Models\TagManager::addTagToUserFromForm($form, \Models\UserManager::user($this->params["userId"]))) {
+            $this->flashMessage("Tag with name '" . $tag->name . "' is added", "success");
             $this->redirect("this");
         }
 
@@ -76,7 +76,7 @@ class HomepagePresenter extends \Nette\Application\UI\Presenter{
         # create form for new User, if form is send it is processed
         $form = new \Base\Form($this, $name);
 
-        if ($user = \Users\UserManager::newUserFromForm($form)) {
+        if ($user = \Models\UserManager::newUserFromForm($form)) {
             $this->flashMessage("The user {$user->name} {$user->surname} was created", "success");
             $this->redirect("detail", $user->id);
         }
@@ -88,7 +88,7 @@ class HomepagePresenter extends \Nette\Application\UI\Presenter{
         # create form for edit User, if form is send it is processed
         $form = new \Base\Form($this, $name);
 
-        if ($user = \Users\UserManager::editUserFromForm($form, \Users\UserManager::user($this->params["userId"]))) {
+        if ($user = \Models\UserManager::editUserFromForm($form, \Models\UserManager::user($this->params["userId"]))) {
             $this->flashMessage("The user {$user->name} {$user->surname} was updated", "success");
             $this->redirect("detail", $user->id);
         }
@@ -100,8 +100,8 @@ class HomepagePresenter extends \Nette\Application\UI\Presenter{
         # create form for insertion Notice to User, if form is send it is processed
         $form = new \Base\Form($this, $name);
 
-        if ($notice = \Notice\NoticeManager::newNoticeFromForm($form)) {
-            \Users\UserManager::user($this->params["userId"])->notices->add($notice);
+        if ($notice = \Models\NoticeManager::newNoticeFromForm($form)) {
+            \Models\UserManager::user($this->params["userId"])->notices->add($notice);
             $this->flashMessage("Note has been added", "success");
             $this->redirect("detail", $this->params["userId"]);
         }
@@ -113,9 +113,9 @@ class HomepagePresenter extends \Nette\Application\UI\Presenter{
         # create form for edit Notice, if form is send it is processed
         $form = new \Base\Form($this, $name);
 
-        if ($notice = \Notice\NoticeManager::editNoticeFromForm($form, \Notice\NoticeManager::notice($this->params["noticeId"]))) {
+        if ($notice = \Models\NoticeManager::editNoticeFromForm($form, \Models\NoticeManager::notice($this->params["noticeId"]))) {
             $this->flashMessage("The notice was updated", "success");
-            $this->redirect("detail", $notice->user->id);
+            $this->redirect("detail", $notice->owner->id);
         }
 
         return $form;
@@ -123,7 +123,7 @@ class HomepagePresenter extends \Nette\Application\UI\Presenter{
 
     protected function createComponentFilter($name) {
         # create component filter for defaul list
-        return new DatagridFilters\UsersFilter($this, $name);
+        return new \DatagridFilters\UsersFilter($this, $name);
     }
 
     protected function createComponentPaginator($name) {

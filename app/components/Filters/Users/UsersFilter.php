@@ -20,28 +20,31 @@ class UsersFilter extends \DatagridFilters\BaseFilter{
         $this->form->addCheckbox("showHide", "Show hide");
         $this->form->addSelect("sort","Sort", array("surname" => "Surname"));
         $this->form->addSelect("direction","", array("ASC" => "Ascending", "DESC" => "Descending"));
-        $this->form->addSubmit("reset", "Reset")->onClick[] = callback($this, "resetFilter");
         $this->form->addSubmit("filter", "filter");
+        $this->form->addSubmit("reset", "Reset")->onClick[] = callback($this, "resetFilter");
     }
 
     public function getSpecification() {
         $formData = $this->filterCriteria();
         $specification = new \obo\Carriers\QuerySpecification();
 
-        # select set
-
         if (isset($formData['keyWord']) AND $formData['keyWord']){
-            $specification->where(" AND (CONCAT({name},' ',{surname}) LIKE ?)", "%{$formData['keyWord']}%");
-            $specification->where(" OR ({notices}.{text} LIKE ?)", "%{$formData['keyWord']}%");
-            $specification->where(" OR ({tags}.{name} LIKE ?)", "%{$formData['keyWord']}%");
-            $specification->where(" OR ({sex}.{name} LIKE ?)", "%{$formData['keyWord']}%");
+            $specification->bindParameters(["keyWord" => "%" . $formData['keyWord'] . "%"]);
+            $specification->where(" AND ((CONCAT({name},' ',{surname}) LIKE '%{$formData['keyWord']}%')");
+            $specification->where(" OR ({notices}.{text} LIKE :keyWord)");
+            $specification->where(" OR ({tags}.{name} LIKE :keyWord)");
+            $specification->where(" OR ({sex}.{name} LIKE :keyWord)");
+            $specification->where(" OR ({contact}.{phone} LIKE :keyWord)");
+            $specification->where(" OR ({contact}.{email} LIKE :keyWord)");
+            $specification->where(" OR ({contact}.{address}.{street} LIKE :keyWord)");
+            $specification->where(" OR ({contact}.{address}.{city} LIKE :keyWord)");
+            $specification->where(" OR ({contact}.{address}.{zip} LIKE :keyWord)");
+            $specification->where(")");
         }
 
         if (!isset($formData['showHide']) OR !$formData['showHide']) {
             $specification->where(" AND {hide} = 0");
         }
-
-        # ordering
 
         $specification->orderBy("{{$formData['sort']}} {$formData['direction']}");
 

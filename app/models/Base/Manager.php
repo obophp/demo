@@ -23,13 +23,13 @@ abstract class EntityManager extends \obo\EntityManager {
      */
     protected static function newEntityFromForm(\Base\Form $form) {
 
-        self::defineAddSubmit($form);
+        static::defineAddSubmit($form);
 
-        self::setDefaultsForForm($form);
+        static::setDefaultsForForm($form);
 
-        self::protectPrimaryItem($form);
+        static::protectPrimaryItem($form);
 
-        return self::processForm($form);
+        return static::processForm($form);
     }
 
     /**
@@ -40,14 +40,14 @@ abstract class EntityManager extends \obo\EntityManager {
      */
     protected static function editEntityFromForm(\Base\Form $form, \Base\Entity $entity = null) {
 
-        self::defineSaveSubmit($form);
+        static::defineSaveSubmit($form);
 
         if(!\is_null($entity)){
-            self::setDefaultsForForm($form, $entity);
-            self::protectPrimaryItem($form, $entity);
+            static::setDefaultsForForm($form, $entity);
+            static::protectPrimaryItem($form, $entity);
         }
 
-        return self::processForm($form);
+        return static::processForm($form);
     }
 
     /**
@@ -56,7 +56,7 @@ abstract class EntityManager extends \obo\EntityManager {
      * @return \Base\Entity
      */
     protected static function saveEntityFromForm(\Base\Form $form) {
-         return self::entity($form->values)->save();
+         return static::entity($form->values)->save();
     }
 
     protected static function defineAddSubmit(\Base\Form $form) {
@@ -68,16 +68,16 @@ abstract class EntityManager extends \obo\EntityManager {
     }
 
     protected static function setDefaultsForForm(\Base\Form $form,  \Base\Entity $entity = null) {
-        $entity = $entity ? : self::entity(array());
+        $entity = $entity ? : static::entity(array());
         $form->setDefaults($entity->propertiesAsArray($form->values));
     }
 
     protected static function processForm(\Base\Form $form) {
-        if ($form->isSuccess()) return self::saveEntityFromForm($form);
+        if ($form->isSuccess()) return static::saveEntityFromForm($form);
     }
 
     protected static function protectPrimaryItem(\Base\Form $form,  \Base\Entity $entity = null) {
-        $entity = $entity ? : self::entity(array());
+        $entity = $entity ? : static::entity(array());
         $form[$primaryPropertyName = $entity->entityInformation()->primaryPropertyName]->setValue($entity->$primaryPropertyName);
     }
 }
