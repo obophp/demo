@@ -1,0 +1,22 @@
+language: php
+
+php:
+    - 5.4
+    - 5.5
+    - 5.6
+    - 7.0
+    - hhvm
+
+matrix:
+    allow_failures:
+        - php: 7.0
+        - php: hhvm
+
+before_script:
+    # update Composer to current version, install Nette Code Checker
+    - composer self-update
+    - composer install --no-interaction
+    - composer create-project nette/code-checker code-checker ~2.5 --no-interaction
+
+script:
+    - php code-checker/src/code-checker.php --short-arrays -i code-checker/

@@ -15,7 +15,7 @@ namespace Models;
 
 # definition of properties
 
-class TagProperties extends \Base\EntityProperties{
+class TagProperties extends \Base\EntityProperties {
     public $name = "";
     public $deleted = false;
 }
@@ -26,16 +26,16 @@ class TagProperties extends \Base\EntityProperties{
  * @obo-repositoryName(tag)
  * @obo-softDeletable
  * @property string $name
- * @property bolean $deleted
+ * @property boolean $deleted
  */
-class Tag extends \Base\Entity{
+class Tag extends \Base\Entity {
 
     /**
-     * @param \Nette\Forms\Form $form
-     * @return \Nette\Forms\Form
+     * @param \Base\Form $form
+     * @return \Base\Form
      */
-    public static function constructForm(\Nette\Forms\Form $form) {
-        $form->addText('name', "New tag");
+    public static function constructForm(\Base\Form $form) {
+        $form->addText("name", "New tag");
         $form->addSelect("tagId", null,  static::tagsDial())->setPrompt("Or select");
         return $form;
     }
@@ -44,7 +44,7 @@ class Tag extends \Base\Entity{
      * @return array
      */
     public static function tagsDial() {
-        $tagsDial = array();
+        $tagsDial = [];
         foreach(\Models\TagManager::tags() as $tag) $tagsDial[$tag->id] = $tag->name;
         return $tagsDial;
     }
@@ -53,7 +53,7 @@ class Tag extends \Base\Entity{
 
 # definition entity manager
 
-class TagManager extends \Base\EntityManager{
+class TagManager extends \Base\EntityManager {
 
     /**
      * @param array|int $specification
@@ -73,11 +73,11 @@ class TagManager extends \Base\EntityManager{
     }
 
     /**
-     * @param \Nette\Forms\Form $form
-     * @param \Users\User $user
-     * @return \Nette\Forms\Form|\Tag\Tag
+     * @param \Base\Form $form
+     * @param \Models\User $user
+     * @return \Base\Form|\Models\Tag
      */
-    public static function addTagToUserFromForm(\Nette\Forms\Form $form, \Models\User $user) {
+    public static function addTagToUserFromForm(\Base\Form $form, \Models\User $user) {
         $form = \Models\Tag::constructForm($form);
         $form->addSubmit("add", "Add");
         if ($form->isSubmitted() AND $form->isValid()) {

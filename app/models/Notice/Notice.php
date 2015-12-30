@@ -20,7 +20,7 @@ class NoticeProperties extends \Base\EntityProperties {
     /** @obo-one(targetEntity = "property:ownerEntityName")*/
     public $owner = null;
     public $ownerEntityName = "";
-    
+
     public $text = "default notice";
 
     /**
@@ -39,15 +39,15 @@ class NoticeProperties extends \Base\EntityProperties {
  * @property string $text
  * @property string $dateTimeInserted
  */
-class Notice extends \Base\Entity{
+class Notice extends \Base\Entity {
 
     /**
-     * @param \Nette\Forms\Form $form
-     * @return \Nette\Forms\Form
+     * @param \Base\Form $form
+     * @return \Base\Form
      */
-    public static function constructForm(\Nette\Forms\Form $form) {
-        $form->addHidden('id');
-        $form->addText('text', 'Text notice', 50);
+    public static function constructForm(\Base\Form $form) {
+        $form->addHidden("id");
+        $form->addText("text", "Text notice", 50);
 
         return $form;
     }
@@ -55,7 +55,7 @@ class Notice extends \Base\Entity{
 
 # definition entity manager
 
-class NoticeManager extends \Base\EntityManager{
+class NoticeManager extends \Base\EntityManager {
 
     /**
      * @param int|array $specification
@@ -66,19 +66,19 @@ class NoticeManager extends \Base\EntityManager{
     }
 
     /**
-     * @param \Nette\Forms\Form $form
-     * @return \Nette\Forms\Form | \Models\Notice
+     * @param \Base\Form $form
+     * @return \Base\Form|\Models\Notice
      */
-    public static function newNoticeFromForm(\Nette\Forms\Form $form) {
+    public static function newNoticeFromForm(\Base\Form $form) {
         return static::newEntityFromForm(\Models\Notice::constructForm($form));
     }
 
     /**
-     * @param \Nette\Forms\Form $form
+     * @param \Base\Form $form
      * @param \Models\Notice $notice
-     * @return \Nette\Forms\Form | \Models\Notice
+     * @return \Base\Form|\Models\Notice
      */
-    public static function editNoticeFromForm(\Nette\Forms\Form $form, \Models\Notice $notice = null) {
+    public static function editNoticeFromForm(\Base\Form $form, \Models\Notice $notice = null) {
         return static::editEntityFromForm(\Models\Notice::constructForm($form), $notice);
     }
 }

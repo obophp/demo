@@ -13,13 +13,13 @@ namespace DatagridFilters;
 
 class UsersFilter extends \DatagridFilters\BaseFilter{
     protected $datagridSnippetName = "usersDatagrid";
-    protected $defaultValues = array("showHide" => false, "sort" => "surname", "direction" => "ASC");
+    protected $defaultValues = ["showHide" => false, "sort" => "surname", "direction" => "ASC"];
 
     protected function constructFilterForm() {
         $this->form->addText("keyWord", "Search");
         $this->form->addCheckbox("showHide", "Show hide");
-        $this->form->addSelect("sort","Sort", array("surname" => "Surname"));
-        $this->form->addSelect("direction","", array("ASC" => "Ascending", "DESC" => "Descending"));
+        $this->form->addSelect("sort","Sort", ["surname" => "Surname"]);
+        $this->form->addSelect("direction","", ["ASC" => "Ascending", "DESC" => "Descending"]);
         $this->form->addSubmit("filter", "filter");
         $this->form->addSubmit("reset", "Reset")->onClick[] = callback($this, "resetFilter");
     }

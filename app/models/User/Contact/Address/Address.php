@@ -34,12 +34,13 @@ class AddressProperties extends \Base\EntityProperties {
  * @property string $city
  * @property string $zip
  */
-class Address extends \Base\Entity{
+class Address extends \Base\Entity {
 
     /**
-     * @param \Nette\Forms\Form $form
+     * @param \Base\Form $form
+     * @param string $controlPrefix
      */
-    public static function constructForm(\Nette\Forms\Form $form, $controlPrefix = null) {
+    public static function constructForm(\Base\Form $form, $controlPrefix = null) {
         $form->addText(($controlPrefix ? $controlPrefix . "_" : "") . "street", "street");
         $form->addText(($controlPrefix ? $controlPrefix . "_" : "") . "city", "city");
         $form->addText(($controlPrefix ? $controlPrefix . "_" : "") . "zip", "zip");
@@ -48,6 +49,6 @@ class Address extends \Base\Entity{
 
 # definition entity manager
 
-class AddressManager extends \Base\EntityManager{
+class AddressManager extends \Base\EntityManager {
 
 }
