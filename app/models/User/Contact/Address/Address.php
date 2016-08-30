@@ -12,8 +12,8 @@
 namespace Models\User\Contact;
 
 # A class defining the entity is usually better to split into its own file. Here are clarity placed in one file
-
 # definition of properties
+
 class AddressProperties extends \Base\EntityProperties {
 
     /**
@@ -23,6 +23,7 @@ class AddressProperties extends \Base\EntityProperties {
     public $street = "";
     public $city = "";
     public $zip = "";
+
 }
 
 # definition entity
@@ -45,6 +46,7 @@ class Address extends \Base\Entity {
         $form->addText(($controlPrefix ? $controlPrefix . "_" : "") . "city", "city");
         $form->addText(($controlPrefix ? $controlPrefix . "_" : "") . "zip", "zip");
     }
+
 }
 
 # definition entity manager

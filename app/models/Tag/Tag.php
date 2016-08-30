@@ -12,12 +12,13 @@
 namespace Models;
 
 # A class defining the entity is usually better to split into its own file. Here are clarity placed in one file
-
 # definition of properties
 
 class TagProperties extends \Base\EntityProperties {
+
     public $name = "";
     public $deleted = false;
+
 }
 
 # definition entity
@@ -36,7 +37,7 @@ class Tag extends \Base\Entity {
      */
     public static function constructForm(\Base\Form $form) {
         $form->addText("name", "New tag");
-        $form->addSelect("tagId", null,  static::tagsDial())->setPrompt("Or select");
+        $form->addSelect("tagId", null, static::tagsDial())->setPrompt("Or select");
         return $form;
     }
 
@@ -45,7 +46,8 @@ class Tag extends \Base\Entity {
      */
     public static function tagsDial() {
         $tagsDial = [];
-        foreach(\Models\TagManager::tags() as $tag) $tagsDial[$tag->id] = $tag->name;
+        foreach (\Models\TagManager::tags() as $tag)
+            $tagsDial[$tag->id] = $tag->name;
         return $tagsDial;
     }
 
@@ -87,7 +89,7 @@ class TagManager extends \Base\EntityManager {
             } else {
                 return $user->tags->add(\Models\TagManager::tag($form["tagId"]->value));
             }
-
         }
     }
+
 }

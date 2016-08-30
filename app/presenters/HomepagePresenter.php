@@ -8,7 +8,6 @@
  * @copyright (c) 2011 - 2013 Adam Suba
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
-
 class HomepagePresenter extends \Nette\Application\UI\Presenter {
 
     public function renderDefault() {
@@ -20,7 +19,7 @@ class HomepagePresenter extends \Nette\Application\UI\Presenter {
         # assign User entity to template
         $this->template->user = $user = \Models\UserManager::user($userId);
         # notify event "onViewInDetail" for User entity
-        \obo\Services::serviceWithName(\obo\obo::EVENT_MANAGER)->notifyEventForEntity("onViewInDetail", $user);
+        \obo\obo::$eventManager->notifyEventForEntity("onViewInDetail", $user);
     }
 
     public function renderEdit($userId) {
@@ -42,12 +41,12 @@ class HomepagePresenter extends \Nette\Application\UI\Presenter {
 
     public function renderEditNotice($noticeId) {
         # assign Notice entity to template
-        $this->template->notice = \Models\NoticeManager::notice($noticeId);
+        $this->template->notice = \Models\Notices\NoticeManager::notice($noticeId);
     }
 
     public function handleDeleteNotice($noticeId) {
         # remove entity
-        $notice = \Models\NoticeManager::notice($noticeId);
+        $notice = \Models\Notices\NoticeManager::notice($noticeId);
         $notice->owner->notices->remove($notice, true);
         $this->flashMessage("Notice has been removed", "success");
         $this->redirect("this");
@@ -100,7 +99,7 @@ class HomepagePresenter extends \Nette\Application\UI\Presenter {
         # create form for insertion Notice to User, if form is send it is processed
         $form = new \Base\Form($this, $name);
 
-        if ($notice = \Models\NoticeManager::newNoticeFromForm($form)) {
+        if ($notice = \Models\Notices\NoticeManager::newNoticeFromForm($form)) {
             \Models\UserManager::user($this->params["userId"])->notices->add($notice);
             $this->flashMessage("Note has been added", "success");
             $this->redirect("detail", $this->params["userId"]);
@@ -113,7 +112,7 @@ class HomepagePresenter extends \Nette\Application\UI\Presenter {
         # create form for edit Notice, if form is send it is processed
         $form = new \Base\Form($this, $name);
 
-        if ($notice = \Models\NoticeManager::editNoticeFromForm($form, \Models\NoticeManager::notice($this->params["noticeId"]))) {
+        if ($notice = \Models\Notices\NoticeManager::editNoticeFromForm($form, \Models\Notices\NoticeManager::notice($this->params["noticeId"]))) {
             $this->flashMessage("The notice was updated", "success");
             $this->redirect("detail", $notice->owner->id);
         }

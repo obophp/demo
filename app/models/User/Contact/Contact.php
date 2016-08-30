@@ -12,8 +12,8 @@
 namespace Models\User;
 
 # A class defining the entity is usually better to split into its own file. Here are clarity placed in one file
-
 # definition of properties
+
 class ContactProperties extends \Base\EntityProperties {
 
     /**
@@ -29,9 +29,10 @@ class ContactProperties extends \Base\EntityProperties {
     public $phone = "777 777 777";
 
     /**
-     * @obo-one(targetEntity = "\Models\Notice", connectViaProperty="owner", ownerNameInProperty = "ownerEntityName", eager = true, autoCreate = true, cascade = "save, delete")
+     * @obo-one(targetEntity = "\Models\Notices\Notice", connectViaProperty="owner", ownerNameInProperty = "ownerEntityName", autoCreate = true, eager = true, cascade = "save, delete")
      */
     public $notice = null;
+
 }
 
 # definition entity
@@ -57,6 +58,7 @@ class Contact extends \Base\Entity {
         $form->addGroup("Notice");
         $form->addText(($controlPrefix ? $controlPrefix . "_" : "") . "notice_text", "Notice");
     }
+
 }
 
 # definition entity manager

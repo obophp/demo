@@ -23,4 +23,5 @@ abstract class BaseFilter extends \obo\Utils\DatagridFilter {
         $renderer->wrappers['label']['suffix'] = '';
         return $form;
     }
+
 }

@@ -42,7 +42,7 @@ abstract class EntityManager extends \obo\EntityManager {
 
         static::defineSaveSubmit($form);
 
-        if(!\is_null($entity)){
+        if (!\is_null($entity)) {
             static::setDefaultsForForm($form, $entity);
             static::protectPrimaryItem($form, $entity);
         }
@@ -56,7 +56,7 @@ abstract class EntityManager extends \obo\EntityManager {
      * @return \Base\Entity
      */
     protected static function saveEntityFromForm(\Base\Form $form) {
-         return static::entity($form->values)->save();
+        return static::entity($form->values)->save();
     }
 
     protected static function defineAddSubmit(\Base\Form $form) {
@@ -73,11 +73,13 @@ abstract class EntityManager extends \obo\EntityManager {
     }
 
     protected static function processForm(\Base\Form $form) {
-        if ($form->isSuccess()) return static::saveEntityFromForm($form);
+        if ($form->isSuccess())
+            return static::saveEntityFromForm($form);
     }
 
     protected static function protectPrimaryItem(\Base\Form $form, \Base\Entity $entity = null) {
         $entity = $entity ? : static::entity([]);
         $form[$primaryPropertyName = $entity->entityInformation()->primaryPropertyName]->setValue($entity->$primaryPropertyName);
     }
+
 }
