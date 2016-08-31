@@ -16,7 +16,7 @@ before_script:
     # update Composer to current version, install Nette Code Checker
     - composer self-update
     - composer install --no-interaction
-    - composer create-project nette/code-checker code-checker ~2.5 --no-interaction
+    - composer create-project nette/code-checker code-checker 2.5 --no-interaction
 
 script:
     - php code-checker/src/code-checker.php --short-arrays -i code-checker/

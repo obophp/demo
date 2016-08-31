@@ -1,108 +1,108 @@
 {block title}User detail{/block}
 {block content}
 <a href="{link default}">Back to overview</a>
-    <table border="1" cellpadding="0" cellspacing="0">
+<table border="1" cellpadding="0" cellspacing="0">
+    <tr>
+        <td colspan="2">Base information</td>
+    </tr>
+
+    <tr>
+        <td>Name</td>
+        <td>{$user->name} {$user->surname}</td>
+    </tr>
+
+    <tr>
+        <td>Sex</td>
+        <td>{$user->sex_name}</td>
+    </tr>
+
+    <tr>
+        <td colspan="2">Address</td>
+    </tr>
+
+    <tr>
+        <td>Street</td>
+        <td>{$user->contact->address->street}</td>
+    </tr>
+
+    <tr>
+        <td>City</td>
+        <td>{$user->contact->address->city}</td>
+    </tr>
+
+    <tr>
+        <td>ZIP</td>
+        <td>{$user->contact->address->zip}</td>
+    </tr>
+
+    <tr>
+        <td colspan="2">Contact</td>
+    </tr>
+
+    <tr>
+        <td>E-mail</td>
+        <td>{$user->contact->email}</td>
+    </tr>
+
+    <tr>
+        <td>Phone</td>
+        <td>{$user->contact->phone}</td>
+    </tr>
+
+    <tr>
+        <td colspan="2">Card information</td>
+    </tr>
+
+    <tr>
+        <td>Created</td>
+        <td>{$user->dateTimeInserted|date:'d.m.Y H:i'}</td>
+    </tr>
+
+    <tr>
+        <td>Updated</td>
+        <td>{$user->dateTimeUpdated|date:'d.m.Y H:i'}</td>
+    </tr>
+</table>
+<a href="{link edit $user->id}">Edit</a>
+
+<h2>Notes:</h2>
+<a href="{link addNotice, $user->id}">Add notice</a>
+
+<table border="1" cellpadding="0" cellspacing="0">
+    <tr>
+        <th>Text</th>
+        <th>Created</th>
+        <th>Action</th>
+    </tr>
+    {foreach $user->notices->getSubset($control["noticePaginator"]) as $notice}
         <tr>
-            <td colspan="2">Base information</td>
+            <td>{$notice->text}</td>
+            <td>{$notice->dateTimeInserted|date:'d.m.Y H:i'}</td>
+            <td>
+                <a href="{link editNotice $notice->id}">Edit</a>
+                <a href="{link deleteNotice! $notice->id}">Delete</a>
+            </td>
         </tr>
+    {/foreach}
+</table>
 
+{control noticePaginator}
+
+<h2>Tags:</h2>
+{control tagForm}
+<br/>
+<table border="1" cellpadding="0" cellspacing="0">
+    <tr>
+        <th>Name</th>
+        <th>Remove</th>
+    </tr>
+    {foreach $user->tags as $tag}
         <tr>
-            <td>Name</td>
-            <td>{$user->name} {$user->surname}</td>
+            <td>{$tag->name}</td>
+            <td>
+                <a href="{link deleteTagFromUser!, $tag->id, $user->id}">Delete</a>
+            </td>
         </tr>
-
-        <tr>
-            <td>Sex</td>
-            <td>{$user->sex_name}</td>
-        </tr>
-
-        <tr>
-            <td colspan="2">Address</td>
-        </tr>
-
-        <tr>
-            <td>Street</td>
-            <td>{$user->contact->address->street}</td>
-        </tr>
-
-        <tr>
-            <td>City</td>
-            <td>{$user->contact->address->city}</td>
-        </tr>
-
-        <tr>
-            <td>ZIP</td>
-            <td>{$user->contact->address->zip}</td>
-        </tr>
-
-        <tr>
-            <td colspan="2">Contact</td>
-        </tr>
-
-        <tr>
-            <td>E-mail</td>
-            <td>{$user->contact->email}</td>
-        </tr>
-
-        <tr>
-            <td>Phone</td>
-            <td>{$user->contact->phone}</td>
-        </tr>
-
-        <tr>
-            <td colspan="2">Card information</td>
-        </tr>
-
-        <tr>
-            <td>Created</td>
-            <td>{$user->dateTimeInserted|date:'d.m.Y H:i'}</td>
-        </tr>
-
-        <tr>
-            <td>Updated</td>
-            <td>{$user->dateTimeUpdated|date:'d.m.Y H:i'}</td>
-        </tr>
-    </table>
-    <a href="{link edit $user->id}">Edit</a>
-
-    <h2>Notes:</h2>
-    <a href="{link addNotice, $user->id}">Add notice</a>
-
-    <table border="1" cellpadding="0" cellspacing="0">
-        <tr>
-            <th>Text</th>
-            <th>Created</th>
-            <th>Action</th>
-        </tr>
-        {foreach $user->notices->getSubset($control["noticePaginator"]) as $notice}
-            <tr>
-                <td>{$notice->text}</td>
-                <td>{$notice->dateTimeInserted|date:'d.m.Y H:i'}</td>
-                <td>
-                    <a href="{link editNotice $notice->id}">Edit</a>
-                    <a href="{link deleteNotice! $notice->id}">Delete</a>
-                </td>
-            </tr>
-        {/foreach}
-    </table>
-
-    {control noticePaginator}
-
-    <h2>Tags:</h2>
-    {control tagForm}
-    <br/>
-    <table border="1" cellpadding="0" cellspacing="0">
-        <tr>
-            <th>Name</th>
-            <th>Remove</th>
-        </tr>
-        {foreach $user->tags as $tag}
-            <tr>
-                <td>{$tag->name}</td>
-                <td>
-                    <a href="{link deleteTagFromUser!, $tag->id, $user->id}">Delete</a>
-                </td>
-            </tr>
-        {/foreach}
-    </table>
+    {/foreach}
+</table>
 {/block}

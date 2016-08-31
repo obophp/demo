@@ -12,9 +12,9 @@
 namespace Models;
 
 # A class defining the entity is usually better to split into its own file. Here are clarity placed in one file
-
 # definition of properties
-class UserProperties extends \Base\EntityProperties{
+
+class UserProperties extends \Base\EntityProperties {
 
     public $name = "default name";
     public $surname = "default surname";
@@ -35,7 +35,7 @@ class UserProperties extends \Base\EntityProperties{
     public $tags = null;
 
     /**
-     * @obo-many(targetEntity = "\Models\Notice", connectViaProperty = "owner", ownerNameInProperty = "ownerEntityName", cascade = "save, delete")
+     * @obo-many(targetEntity = "\Models\Notices\Notice", connectViaProperty = "owner", ownerNameInProperty = "ownerEntityName", cascade = "save, delete")
      */
     public $notices = null;
 
@@ -43,11 +43,27 @@ class UserProperties extends \Base\EntityProperties{
      * @obo-dataType(integer)
      */
     public $countView = 0;
+    public $data = [];
+
+    /**
+     * @obo-storeTo(data)
+     */
+    public $settings = "";
+
+    /**
+     * @obo-storeTo(data)
+     */
+    public $settings2 = "";
 
     /**
      * @obo-dataType(boolean)
      */
     public $hide = false;
+
+    /**
+     * @obo-dataType(dateInterval)
+     */
+    public $timeBorn = null;
 
     /**
      * @obo-timeStamp(beforeInsert)
@@ -75,6 +91,7 @@ class UserProperties extends \Base\EntityProperties{
         # Here we can do anything
         return $this->name;
     }
+
 }
 
 # definition entity
@@ -107,6 +124,9 @@ class User extends \Base\Entity {
         $form->addRadioList("sex", "Sex", \Models\User\Sex::sexDial());
         $form->addGroup("Contact");
         \Models\User\Contact::constructForm($form, "contact");
+        $form->addGroup("Aditonal settings");
+        $form->addText("settings", "Aditonal settings");
+        $form->addText("settings2", "Aditonal settings2");
         $form->addGroup("");
         $form->addCheckbox("hide", "Hide");
         return $form;
@@ -125,7 +145,7 @@ class User extends \Base\Entity {
 
 # definition entity manager
 
-class UserManager extends \Base\EntityManager{
+class UserManager extends \Base\EntityManager {
 
     /**
      * @param int|array $specification

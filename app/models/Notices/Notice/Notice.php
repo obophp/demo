@@ -9,18 +9,16 @@
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
-namespace Models;
+namespace Models\Notices;
 
 # A class defining the entity is usually better to split into its own file. Here are clarity placed in one file
-
 # definition of properties
 
 class NoticeProperties extends \Base\EntityProperties {
 
-    /** @obo-one(targetEntity = "property:ownerEntityName")*/
+    /** @obo-one(targetEntity = "property:ownerEntityName") */
     public $owner = null;
     public $ownerEntityName = "";
-
     public $text = "default notice";
 
     /**
@@ -28,6 +26,7 @@ class NoticeProperties extends \Base\EntityProperties {
      */
     public $dateTimeInserted = "";
     public $deleted = false;
+
 }
 
 # definition entity
@@ -51,6 +50,7 @@ class Notice extends \Base\Entity {
 
         return $form;
     }
+
 }
 
 # definition entity manager
@@ -65,12 +65,17 @@ class NoticeManager extends \Base\EntityManager {
         return static::entity($specification);
     }
 
+    public static function noticesForUser(\Models\User $user) {
+        return static::findEntities(static::querySpecification()->where("{owner}", $user));
+        return static::findEntities(static::querySpecification()->where("{owner} = ? AND {ownerEntityName} = ?", $user->primaryPropertyValue(), $user->entityInformation()->name));
+    }
+
     /**
      * @param \Base\Form $form
      * @return \Base\Form|\Models\Notice
      */
     public static function newNoticeFromForm(\Base\Form $form) {
-        return static::newEntityFromForm(\Models\Notice::constructForm($form));
+        return static::newEntityFromForm(\Models\Notices\Notice::constructForm($form));
     }
 
     /**
@@ -79,6 +84,7 @@ class NoticeManager extends \Base\EntityManager {
      * @return \Base\Form|\Models\Notice
      */
     public static function editNoticeFromForm(\Base\Form $form, \Models\Notice $notice = null) {
-        return static::editEntityFromForm(\Models\Notice::constructForm($form), $notice);
+        return static::editEntityFromForm(\Models\Notices\Notice::constructForm($form), $notice);
     }
+
 }

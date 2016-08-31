@@ -2,7 +2,7 @@
 
 SET NAMES utf8;
 SET foreign_key_checks = 0;
-SET time_zone = '+01:00';
+SET time_zone = '+02:00';
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 DROP TABLE IF EXISTS `notice`;
@@ -19,7 +19,7 @@ CREATE TABLE `notice` (
 INSERT INTO `notice` (`id`, `owner`, `ownerEntityName`, `text`, `dateTimeInserted`, `deleted`) VALUES
 (1,	NULL,	'',	'work contact',	'2015-12-29 13:15:57',	0),
 (2,	1,	'Models\\User',	'notice 1',	'2015-12-29 13:16:05',	0),
-(3,	1,	'Models\\User',	'notice 2',	'2015-12-29 13:16:13',	0);
+(3,	1,	'Models\\User',	'notice 2',	'2015-12-29 13:16:13',	0),
 
 DROP TABLE IF EXISTS `relationship_between_user_and_tag`;
 CREATE TABLE `relationship_between_user_and_tag` (
@@ -62,17 +62,19 @@ CREATE TABLE `user` (
   `name` varchar(20) NOT NULL,
   `surname` varchar(20) NOT NULL,
   `sex` int(10) unsigned NOT NULL,
+  `timeBorn` time DEFAULT NULL,
   `contact` int(10) unsigned DEFAULT NULL,
   `countView` int(10) unsigned NOT NULL,
+  `data` varchar(255) DEFAULT NULL,
   `hide` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `dateTimeInserted` datetime NOT NULL,
   `dateTimeUpdated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `address` (`contact`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO `user` (`id`, `name`, `surname`, `sex`, `contact`, `countView`, `hide`, `dateTimeInserted`, `dateTimeUpdated`) VALUES
-(1,	'John',	'Doe',	1,	1,	5,	0,	'2015-12-29 13:15:57',	'2015-12-29 13:16:23');
+INSERT INTO `user` (`id`, `name`, `surname`, `sex`, `timeBorn`, `contact`, `countView`, `data`, `hide`, `dateTimeInserted`, `dateTimeUpdated`) VALUES
+(1,	'John',	'Doe',	1,	'09:16:30',	1,	148,	'a:2:{s:8:\"settings\";s:4:\"1ada\";s:9:\"settings2\";s:4:\"25da\";}',	0,	'2015-12-29 13:15:57',	'2016-08-30 15:31:18');
 
 DROP TABLE IF EXISTS `user_contact`;
 CREATE TABLE `user_contact` (
@@ -100,4 +102,4 @@ CREATE TABLE `user_contact_address` (
 INSERT INTO `user_contact_address` (`id`, `contact`, `street`, `city`, `zip`) VALUES
 (1,	NULL,	'3500 West Olive Avenue',	'Burbank',	'CA 91505-5512');
 
--- 2015-12-29 13:16:57
+-- 2016-08-30 15:31:24

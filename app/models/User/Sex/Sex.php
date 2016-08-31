@@ -12,10 +12,12 @@
 namespace Models\User;
 
 # A class defining the entity is usually better to split into its own file. Here are clarity placed in one file
-
 # definition of properties
+
 class SexProperties extends \Base\EntityProperties {
+
     public $name = "";
+
 }
 
 # definition entity
@@ -24,7 +26,7 @@ class SexProperties extends \Base\EntityProperties {
  * @obo-repositoryName(sex)
  * @property string $name
  */
-class Sex extends \Base\Entity{
+class Sex extends \Base\Entity {
 
     /**
      * @return array
@@ -40,6 +42,6 @@ class Sex extends \Base\Entity{
 
 # definition entity manager
 
-class SexManager extends \Base\EntityManager{
+class SexManager extends \Base\EntityManager {
 
 }

@@ -4,7 +4,6 @@ class Cache implements \obo\Interfaces\ICache {
 
     protected $cacheEngine = null;
 
-
     public function __construct($cacheTemporary) {
         $this->cacheEngine = new \Nette\Caching\Cache(new Nette\Caching\Storages\FileStorage($cacheTemporary));
     }

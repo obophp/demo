@@ -11,15 +11,16 @@
 
 namespace DatagridFilters;
 
-class UsersFilter extends \DatagridFilters\BaseFilter{
+class UsersFilter extends \DatagridFilters\BaseFilter {
+
     protected $datagridSnippetName = "usersDatagrid";
     protected $defaultValues = ["showHide" => false, "sort" => "surname", "direction" => "ASC"];
 
     protected function constructFilterForm() {
         $this->form->addText("keyWord", "Search");
         $this->form->addCheckbox("showHide", "Show hide");
-        $this->form->addSelect("sort","Sort", ["surname" => "Surname"]);
-        $this->form->addSelect("direction","", ["ASC" => "Ascending", "DESC" => "Descending"]);
+        $this->form->addSelect("sort", "Sort", ["surname" => "Surname"]);
+        $this->form->addSelect("direction", "", ["ASC" => "Ascending", "DESC" => "Descending"]);
         $this->form->addSubmit("filter", "filter");
         $this->form->addSubmit("reset", "Reset")->onClick[] = callback($this, "resetFilter");
     }
@@ -28,9 +29,9 @@ class UsersFilter extends \DatagridFilters\BaseFilter{
         $formData = $this->filterCriteria();
         $specification = new \obo\Carriers\QuerySpecification();
 
-        if (isset($formData['keyWord']) AND $formData['keyWord']){
+        if (isset($formData['keyWord']) AND $formData['keyWord']) {
             $specification->bindParameters(["keyWord" => "%" . $formData['keyWord'] . "%"]);
-            $specification->where(" AND ((CONCAT({name},' ',{surname}) LIKE '%{$formData['keyWord']}%')");
+            $specification->where(" AND ((CONCAT({name},' ',{surname}) LIKE :keyWord)");
             $specification->where(" OR ({notices}.{text} LIKE :keyWord)");
             $specification->where(" OR ({tags}.{name} LIKE :keyWord)");
             $specification->where(" OR ({sex}.{name} LIKE :keyWord)");
@@ -42,7 +43,7 @@ class UsersFilter extends \DatagridFilters\BaseFilter{
             $specification->where(")");
         }
 
-        if (!isset($formData['showHide']) OR !$formData['showHide']) {
+        if (!isset($formData['showHide']) OR ! $formData['showHide']) {
             $specification->where(" AND {hide} = 0");
         }
 
@@ -50,4 +51,5 @@ class UsersFilter extends \DatagridFilters\BaseFilter{
 
         return $specification;
     }
+
 }
