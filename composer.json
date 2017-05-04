@@ -9,13 +9,16 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
-        "nette/nette": "~2.2",
+        "php": ">=5.5.0",
+        "nette/nette": "2.2.*",
         "obo/obo": "dev-master",
         "obo/data-storage-mysql": "dev-master",
         "obo/tracy-tools": "dev-master",
         "obo/datagrid-filter": "dev-master",
         "obo/datagrid-paginator": "dev-master"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "~2.5"
     },
     "minimum-stability": "dev",
     "prefer-stable": true
